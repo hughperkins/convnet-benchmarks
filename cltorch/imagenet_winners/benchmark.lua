@@ -40,12 +40,16 @@ for i=1,#nets do
                'x' .. input:size(3) .. 'x' .. input:size(4))
 
       -- dry-run
-      model:zeroGradParameters()
-      local output = model:updateOutput(input)
-      local gradInput = model:updateGradInput(input, output)
-      model:accGradParameters(input, output)
-      cltorch.synchronize()
-      collectgarbage()
+      print('warming up')
+      for warm_up=1,5 do
+        model:zeroGradParameters()
+        local output = model:updateOutput(input)
+        local gradInput = model:updateGradInput(input, output)
+        model:accGradParameters(input, output)
+        cltorch.synchronize()
+        collectgarbage()
+      end
+      print('done warming up')
 
       local tmf, tmbi, tmbg
       sys.tic()
