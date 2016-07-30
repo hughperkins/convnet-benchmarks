@@ -10,6 +10,7 @@ make -j 4 install
 cd ../python
 virtualenv ../env
 source ../env/bin/activate
+pip install numpy
 source ../dist/bin/activate.sh
 python setup.py install
 cd ../..
